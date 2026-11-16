@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VO2max & Running Economy Test Logger</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <div class="icon">🏃</div>
+        <h1>VO₂max & Running Economy</h1>
+        <h2>Sports Science Test Logger</h2>
+        <p>Exercise Physiology & Performance Assessment</p>
+    </header>
+
+    <div class="intro">
+        Record and analyse participant data from two testing protocols:
+        Running Economy and Maximal Oxygen Uptake / Endurance.
+    </div>
+
+    <!-- PARTICIPANT INFORMATION -->
+
+    <section class="card">
+
+        <h3>1. Participant Information</h3>
+
+        <div class="form-grid">
+
+            <div>
+                <label for="participant">Participant Number</label>
+                <input type="text" id="participant"
+                       placeholder="e.g. P001">
+            </div>
+
+            <div>
+                <label for="researcher">Researcher Name</label>
+                <input type="text" id="researcher"
+                       placeholder="Enter researcher name">
+            </div>
+
+            <div>
+                <label for="age">Participant Age</label>
+                <input type="number" id="age"
+                       min="10" max="100"
+                       placeholder="e.g. 25">
+            </div>
+
+            <div>
+                <label for="date">Testing Date</label>
+                <input type="date" id="date">
+            </div>
+
+        </div>
+
+        <div class="hrmax-box">
+            <span>Predicted Maximum Heart Rate</span>
+            <strong id="hrmaxDisplay">-- bpm</strong>
+            <small>Formula: 220 − Age</small>
+        </div>
+
+        <p id="participantError" class="error" hidden></p>
+
+    </section>
+
+
+    <!-- RUNNING ECONOMY -->
+
+    <section class="card">
+
+        <div class="section-heading">
+            <div>
+                <h3>2. Running Economy Test</h3>
+                <p>Speed increments</p>
+            </div>
+            <span class="section-icon">🏃</span>
+        </div>
+
+        <div class="form-grid">
+
+            <div>
+                <label for="reStages">Number of Stages</label>
+                <input type="number" id="reStages"
+                       min="1" max="20" value="4">
+            </div>
+
+            <div>
+                <label for="startSpeed">Starting Speed (km/h)</label>
+                <input type="number" id="startSpeed"
+                       min="0" step="0.1" value="0">
+            </div>
+
+        </div>
+
+        <p class="hint">
+            Enter the measured speed, VO₂, heart rate and RPE
+            for each stage. Starting speed is recorded as test information.
+        </p>
+
+        <div id="reInputs"></div>
+
+        <button id="saveREBtn">
+            Save Running Economy Data
+        </button>
+
+        <p id="reMessage" class="success-message" hidden></p>
+        <p id="reError" class="error" hidden></p>
+
+    </section>
+
+
+    <!-- VO2MAX ENDURANCE -->
+
+    <section class="card">
+
+        <div class="section-heading">
+            <div>
+                <h3>3. Maximal Oxygen Uptake / Endurance Test</h3>
+                <p>Gradient increments</p>
+            </div>
+            <span class="section-icon">⛰️</span>
+        </div>
+
+        <div class="form-grid">
+
+            <div>
+                <label for="vo2Stages">Number of Stages</label>
+                <input type="number" id="vo2Stages"
+                       min="1" max="20" value="10">
+            </div>
+
+            <div>
+                <label for="testSpeed">Test Speed (km/h)</label>
+                <input type="number" id="testSpeed"
+                       min="0" step="0.1" value="0">
+            </div>
+
+        </div>
+
+        <p class="hint">
+            Enter the treadmill gradient, VO₂, heart rate and RPE
+            for each stage.
+        </p>
+
+        <div id="vo2Inputs"></div>
+
+        <button id="saveVO2Btn">
+            Save VO₂max Data
+        </button>
+
+        <p id="vo2Message" class="success-message" hidden></p>
+        <p id="vo2Error" class="error" hidden></p>
+
+    </section>
+
+
+    <!-- ANALYSIS -->
+
+    <section class="card analysis" id="analysis" hidden>
+
+        <h3>4. Summary & Analysis</h3>
+
+        <div class="participant-summary" id="participantSummary"></div>
+
+        <div class="metrics">
+
+            <div class="metric">
+                <span>Highest Recorded VO₂</span>
+                <strong id="vo2maxResult">--</strong>
+                <small>ml/kg/min</small>
+            </div>
+
+            <div class="metric">
+                <span>Predicted HRmax</span>
+                <strong id="hrmaxResult">--</strong>
+                <small>bpm</small>
+            </div>
+
+            <div class="metric">
+                <span>Stages Above 90% HRmax</span>
+                <strong id="flaggedStages">--</strong>
+                <small>stages</small>
+            </div>
+
+        </div>
+
+        <div class="chart-container">
+            <h3>VO₂ Curve</h3>
+            <canvas id="vo2Chart"></canvas>
+        </div>
+
+        <div class="chart-container">
+            <h3>Heart Rate Curve</h3>
+            <canvas id="hrChart"></canvas>
+        </div>
+
+        <div class="chart-container">
+            <h3>RPE Curve</h3>
+            <canvas id="rpeChart"></canvas>
+        </div>
+
+        <h3 class="table-heading">
+            Endurance Test Results
+        </h3>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Stage</th>
+                        <th>Gradient</th>
+                        <th>VO₂</th>
+                        <th>HR</th>
+                        <th>%HRmax</th>
+                        <th>RPE</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody id="vo2ResultsTable"></tbody>
+            </table>
+        </div>
+
+        <p class="hint">
+            Stages exceeding 90% of predicted HRmax are highlighted.
+        </p>
+
+    </section>
+
+
+    <!-- RUNNING ECONOMY RESULTS -->
+
+    <section class="card analysis" id="reAnalysis" hidden>
+
+        <h3>5. Running Economy Analysis</h3>
+
+        <div class="chart-container">
+            <h3>Running Speed vs VO₂</h3>
+            <canvas id="reChart"></canvas>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Stage</th>
+                        <th>Speed (km/h)</th>
+                        <th>VO₂</th>
+                        <th>Heart Rate</th>
+                        <th>RPE</th>
+                    </tr>
+                </thead>
+
+                <tbody id="reResultsTable"></tbody>
+            </table>
+        </div>
+
+    </section>
+
+
+    <!-- EXPORT -->
+
+    <section class="card">
+
+        <h3>6. Export Testing Report</h3>
+
+        <p class="hint">
+            Download the recorded test data or print a combined
+            testing report.
+        </p>
+
+        <button id="exportREBtn">
+            Download Running Economy CSV
+        </button>
+
+        <button id="exportVO2Btn">
+            Download VO₂max CSV
+        </button>
+
+        <button id="exportPDFBtn" class="secondary-btn">
+            Print / Save Combined PDF Report
+        </button>
+
+        <p id="exportMessage" class="hint"></p>
+
+    </section>
+
+
+    <footer>
+        VO₂max & Running Economy | Sports Science Test Logger
+    </footer>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
