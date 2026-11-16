@@ -423,3 +423,227 @@ footer {
         max-width: 100%;
     }
 }
+
+
+
+/* Main page */
+body {
+    background: #f3f5f8;
+    color: #253449;
+}
+
+/* Main container */
+.container {
+    color: #253449;
+}
+
+/* Header */
+header {
+    color: #253449;
+}
+
+header h1,
+header h2,
+header h3 {
+    color: #253449;
+}
+
+header p,
+.intro {
+    color: #64748b;
+}
+
+/* Main cards */
+.card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 3px 12px rgba(30, 50, 80, 0.045);
+    color: #334155;
+}
+
+/* Section headings */
+.section-heading {
+    color: #253449;
+}
+
+.section-icon {
+    color: #2878bd;
+}
+
+/* Form labels */
+label {
+    color: #475569;
+}
+
+/* Input fields */
+input,
+select,
+textarea {
+    background: #f8fafc;
+    color: #253449;
+    border: 1px solid #d8e0ea;
+    border-radius: 8px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #6ba8df;
+    box-shadow: 0 0 0 3px rgba(107, 168, 223, 0.15);
+}
+
+/* HRmax information */
+.hrmax-box {
+    background: #eaf3fc;
+    border: 1px solid #d4e6f7;
+    color: #24649d;
+    border-radius: 10px;
+}
+
+/* Supporting notes */
+.hint {
+    color: #64748b;
+}
+
+/* Stage input rows */
+.stage-row {
+    background: #f8fafc;
+    border: 1px solid #e5eaf0;
+    color: #334155;
+    border-radius: 10px;
+}
+
+.stage-grid {
+    color: #334155;
+}
+
+.stage-field label {
+    color: #64748b;
+}
+
+/* Metrics */
+.metrics {
+    gap: 14px;
+}
+
+.metric {
+    background: #f1f6fb;
+    border: 1px solid #dce8f3;
+    color: #334155;
+    border-radius: 12px;
+}
+
+.metric h3,
+.metric p {
+    color: #64748b;
+}
+
+/* Participant summary */
+.participant-summary {
+    background: #f1f6fb;
+    border: 1px solid #dce8f3;
+    color: #334155;
+    border-radius: 10px;
+}
+
+/* Chart containers */
+.chart-container {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+}
+
+/* Table headings */
+.table-heading {
+    color: #253449;
+}
+
+/* Table wrapper */
+.table-wrapper {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    overflow-x: auto;
+}
+
+/* Tables */
+table {
+    color: #334155;
+}
+
+th {
+    background: #edf2f7;
+    color: #475569;
+}
+
+td {
+    border-bottom: 1px solid #e8edf2;
+}
+
+/* High heart rate rows */
+.flagged-row {
+    background: #fff7ed;
+    color: #9a3412;
+}
+
+.flagged-status {
+    background: #ffedd5;
+    color: #c2410c;
+    border-radius: 6px;
+}
+
+.normal-status {
+    background: #ecfdf3;
+    color: #067647;
+    border-radius: 6px;
+}
+
+/* Error messages */
+.error {
+    background: #fff1f0;
+    color: #b42318;
+    border: 1px solid #fecdca;
+    border-radius: 8px;
+}
+
+/* Success messages */
+.success-message {
+    background: #ecfdf3;
+    color: #067647;
+    border: 1px solid #abefc6;
+    border-radius: 8px;
+}
+
+/* Buttons */
+button {
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+/* Footer */
+footer {
+    color: #94a3b8;
+}
+
+/* General borders */
+hr {
+    border-color: #e2e8f0;
+}
+
+/* Mobile layout */
+@media (max-width: 768px) {
+    body {
+        background: #f3f5f8;
+    }
+
+    .card {
+        box-shadow: 0 2px 8px rgba(30, 50, 80, 0.04);
+    }
+
+    .stage-row {
+        background: #f8fafc;
+    }
+}
+
