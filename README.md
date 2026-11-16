@@ -1,156 +1,240 @@
-# 🏋️ Velocity-Based Training (VBT) – 1RM Profiling System
+# 🏃 VO₂max & Running Economy Test Logger
 
-A browser-based sports performance tool that estimates an athlete's One-Repetition Maximum (1RM) using the **Multi-Point Load–Velocity Method**.
+A browser-based sports science testing application designed to record, analyse and visualise data from **Running Economy** and **Maximal Oxygen Uptake (VO₂max) / Endurance Testing**.
 
-The application uses exercise-specific velocity thresholds and linear regression to generate load–velocity profiles, estimate 1RM and monitor strength development over multiple testing sessions.
+The application provides a centralised interface for researchers, coaches and sports practitioners to collect physiological data, monitor exercise responses and analyse participant performance across progressive testing stages.
 
 ## 🎯 Project Overview
 
-Velocity-Based Training (VBT) is an approach to resistance training that uses movement velocity to monitor performance and provide insights into an athlete's strength capabilities.
+Assessing cardiorespiratory fitness and running performance involves collecting multiple physiological measurements under progressively increasing exercise demands.
 
-This project was developed to simplify the process of estimating 1RM through multiple load–velocity measurements, allowing coaches and sports practitioners to analyse performance without requiring manual calculations.
+Recording and analysing these measurements manually can be time-consuming and increase the possibility of human error.
 
-Users can input multiple load and velocity data points, generate a linear regression profile and estimate 1RM based on the selected exercise's reference velocity at 1RM (V1RM).
+This project was developed to simplify the data collection and analysis process by providing a digital testing logger that automatically organises participant information, calculates heart rate intensity, flags relevant physiological responses and generates visual performance reports.
+
+The application consists of two main testing protocols:
+
+1. Running Economy Test – speed increments.
+2. Maximal Oxygen Uptake / Endurance Test – gradient increments.
 
 ## ✨ Features
 
-### 1. Athlete Information
-- Record athlete name.
-- Input body weight (kg).
-- Record testing date.
-- Organise testing sessions by athlete.
+### 1. Participant Information
 
-### 2. Exercise-Specific V1RM Reference Values
+Record essential participant and testing information:
 
-The application includes reference velocities for 10 exercises:
+- Participant number.
+- Researcher name.
+- Participant age.
+- Testing date.
+- Automatically calculated predicted maximum heart rate (HRmax).
 
-| Exercise | V1RM (m/s) |
-|---|---:|
-| Bench Press | 0.17 |
-| Prone Bench Pull | 0.50 |
-| Pull-Up | 0.23 |
-| Seated Military Press | 0.19 |
-| Lat Pulldown | 0.47 |
-| Seated Cable Row | 0.40 |
-| Squat | 0.30 |
-| Deadlift | 0.15 |
-| Hip Thrust | 0.25 |
-| Leg Press | 0.21 |
+**Predicted HRmax formula:**
 
-### 3. Multi-Point Load–Velocity Profiling
-- Select between 2 and 8 load–velocity data points.
-- Input resistance load (kg).
-- Input mean concentric velocity (m/s).
-- Automatically generate a linear load–velocity profile.
+HRmax = 220 − Age
 
-### 4. Automatic 1RM Estimation
+### 2. Running Economy Test
 
-The application uses linear regression to establish the relationship between load and velocity.
+Collect physiological data across progressive running speeds.
 
-**Linear regression equation:**
+Users can customise the number of testing stages and record:
 
-Load = a × Velocity + b
+| Measurement | Unit |
+|---|---|
+| Running Speed | km/h |
+| Oxygen Consumption (VO₂) | ml/kg/min |
+| Heart Rate | bpm |
+| Rating of Perceived Exertion (RPE) | 6–20 |
 
-Where:
-- a = Regression slope
-- b = Regression intercept
+The application automatically generates a Running Economy graph displaying the relationship between running speed and oxygen consumption.
 
-Estimated 1RM is calculated using:
+### 3. VO₂max / Endurance Test
 
-**Estimated 1RM = a × V1RM + b**
+Record physiological responses across progressively increasing treadmill gradients.
 
-The result is displayed in kilograms.
+Users can customise the number of testing stages and record:
 
-### 5. Regression Analysis
-The application calculates:
-- Regression slope.
-- Regression intercept.
-- Coefficient of determination (R²).
-- Indicative regression fit quality.
+| Measurement | Unit |
+|---|---|
+| Treadmill Gradient | % |
+| Oxygen Consumption (VO₂) | ml/kg/min |
+| Heart Rate | bpm |
+| Rating of Perceived Exertion (RPE) | 6–20 |
 
-R² provides an indication of how closely the measured data follows the fitted linear relationship.
+The application automatically calculates the highest recorded VO₂ value and generates physiological response graphs.
+
+### 4. Automatic Heart Rate Analysis
+
+The application calculates the percentage of predicted maximum heart rate for every endurance testing stage.
+
+**Calculation:**
+
+%HRmax = (Measured Heart Rate / Predicted HRmax) × 100
+
+Stages exceeding 90% of predicted HRmax are automatically flagged and highlighted.
+
+This allows researchers to identify stages where participants reach high relative cardiovascular intensity.
+
+### 5. Automatic Performance Summary
+
+The analysis dashboard provides:
+
+- Highest recorded VO₂ (ml/kg/min).
+- Predicted HRmax (bpm).
+- Number of stages exceeding 90% HRmax.
+- Endurance testing data table.
+- Running Economy results table.
 
 ### 6. Data Visualisation
-Interactive load–velocity graph displaying:
-- Measured load–velocity points.
-- Linear regression line.
-- Estimated 1RM point.
 
-### 7. Athlete Progress Tracking
-- Save multiple testing sessions.
-- Review previous testing results.
-- Track estimated 1RM changes over time.
-- Compare the latest estimated 1RM across exercises.
-- Filter testing history by athlete name.
+The application generates four interactive graphs using Chart.js:
 
-### 8. Data Export
-- Export testing records as CSV.
-- Open the browser's print function to save reports as PDF.
-- Use exported CSV files for further analysis in Excel.
+| Graph | Variables |
+|---|---|
+| VO₂ Curve | VO₂ vs Testing Stage |
+| Heart Rate Curve | HR vs Testing Stage |
+| RPE Curve | RPE vs Testing Stage |
+| Running Economy Curve | VO₂ vs Running Speed |
+
+These graphs help visualise changes in physiological responses as exercise intensity increases.
+
+### 7. Data Export
+
+Testing results can be exported for further analysis and reporting.
+
+- Running Economy results as CSV.
+- VO₂max / Endurance results as CSV.
+- Combined testing report using the browser's Print / Save as PDF functionality.
+
+Exported CSV files include participant information and individual stage measurements.
 
 ## 🛠️ Technologies Used
 
 | Technology | Purpose |
 |---|---|
-| HTML5 | Website structure |
-| CSS3 | Styling and responsive layout |
-| JavaScript | Calculations and application logic |
-| Chart.js | Interactive data visualisation |
-| LocalStorage | Browser-based data persistence |
+| HTML5 | Application structure |
+| CSS3 | Styling and responsive interface |
+| JavaScript | Data collection, calculations and validation |
+| Chart.js | Physiological data visualisation |
 | GitHub Pages | Website hosting |
 
+## 📁 Project Structure
+
+```text
+vo2max-running-economy/
+│
+├── index.html
+│   └── Application structure and testing interface
+│
+├── style.css
+│   └── Responsive dashboard styling
+│
+├── script.js
+│   └── Data collection, calculations,
+│       validation, graphs and CSV exports
+│
+└── README.md
+    └── Project documentation
+```
+
+## 🚀 Getting Started
+
+### Option 1: Access the Live Application
+
+Visit the deployed GitHub Pages website:
+
+`https://yourusername.github.io/vo2max-running-economy/`
+
+Replace `yourusername` with your GitHub username.
+
+### Option 2: Run Locally
+
+Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/vo2max-running-economy.git
+```
+
+Navigate into the project folder:
+
+```bash
+cd vo2max-running-economy
+```
+
+Open `index.html` in your browser.
+
+No Python environment, Node.js server or backend installation is required.
+
+### Deploy Using GitHub Pages
+
+1. Upload all project files to your GitHub repository.
+2. Navigate to **Settings → Pages**.
+3. Select **Deploy from a branch**.
+4. Choose the `main` branch.
+5. Select `/ (root)`.
+6. Click **Save**.
+
+GitHub Pages will automatically deploy the application.
 
 ## 📊 How to Use
 
-1. Enter the athlete's name, body weight and testing date.
-2. Select the exercise being tested.
-3. Choose the number of load–velocity data points.
-4. Enter the corresponding loads and mean concentric velocities.
-5. Click **Generate Load–Velocity Profile**.
-6. Review the estimated 1RM, regression statistics and graph.
-7. Click **Save Athlete Test** to store the results.
-8. Access the athlete's previous testing sessions to monitor progress.
-9. Export the testing history as CSV or PDF when required.
+### Step 1: Participant Registration
 
-## ⚠️ Important Considerations
+Enter the participant number, researcher name, age and testing date.
 
-- The application assumes a linear relationship between load and mean concentric velocity.
-- Exercise-specific V1RM values are reference assumptions and may not accurately represent every individual.
-- Estimated 1RM accuracy depends on the quality and range of the collected data.
-- Extrapolation beyond measured loads introduces uncertainty.
-- R² indicates goodness of fit, not the accuracy of the estimated 1RM.
-- The application is intended as a performance-monitoring aid and should not replace individualised testing and professional judgement.
+The application automatically calculates predicted HRmax using the 220 − age formula.
 
-## 💾 Data Storage
+### Step 2: Running Economy Testing
 
-Athlete testing records are currently stored using browser LocalStorage.
+1. Select the number of testing stages.
+2. Enter the starting speed.
+3. Record running speed, VO₂, heart rate and RPE for each stage.
+4. Click **Save Running Economy Data**.
+5. Review the results table and VO₂ versus speed graph.
 
-This means:
-- Records persist on the same browser and device.
-- Data is not automatically shared between devices.
-- Clearing browser storage may permanently remove saved records.
-- CSV exports are recommended as regular backups.
+### Step 3: VO₂max / Endurance Testing
+
+1. Select the number of testing stages.
+2. Enter the treadmill test speed.
+3. Record gradient, VO₂, heart rate and RPE for each stage.
+4. Click **Save VO₂max Data**.
+5. Review the physiological response graphs and automatically flagged stages.
+
+### Step 4: Export Results
+
+Download the respective CSV files or print the combined testing report as a PDF.
+
+## ⚠️ Scientific Considerations
+
+- Predicted HRmax using 220 − age is an estimation and may differ from an individual's actual maximum heart rate.
+- The highest recorded VO₂ is not necessarily a confirmed VO₂max without appropriate verification criteria.
+- Running Economy assessments should account for steady-state oxygen consumption and consistent testing conditions.
+- Heart rate responses may be influenced by fatigue, hydration, environmental conditions and individual variability.
+- RPE should be interpreted alongside physiological measurements rather than as an independent indicator of maximal effort.
+
+This application is intended as a data collection and performance-monitoring aid, not a replacement for professional exercise testing protocols or clinical assessment.
 
 ## 🔮 Future Improvements
 
 Potential future developments include:
 
-- Supabase integration for centralised athlete databases.
-- Multi-athlete management and athlete profiles.
-- Cloud-based testing history and synchronisation.
-- Automated athlete performance reports.
-- Additional strength and power profiling tests.
-- Comparison of training adaptations across testing periods.
-- Integration with velocity-tracking devices.
+- Supabase integration for centralised participant records.
+- Permanent storage of testing sessions.
+- Participant search and retrieval.
+- Longitudinal VO₂max and Running Economy comparisons.
+- Automated participant performance reports.
+- Individual testing history dashboards.
+- Integration with heart rate monitors and physiological measurement devices.
+- Additional exercise physiology assessment protocols.
 
 ## 👨‍💻 Author
 
 Developed as part of a sports science and performance technology portfolio.
 
-**Project:** Velocity-Based Training 1RM Profiling System
+**Project:** VO₂max & Running Economy Test Logger
 
-**Focus Areas:** Sports Science | Strength & Conditioning | Performance Testing | Data Visualisation | Web Development
+**Focus Areas:** Exercise Physiology | Sports Science | Cardiorespiratory Fitness | Performance Testing | Data Visualisation | Web Development
 
 ---
 
-*Built to make strength profiling, performance monitoring and sports-science data analysis more accessible.*
+*Turning physiological testing data into organised, accessible and actionable performance insights.*
