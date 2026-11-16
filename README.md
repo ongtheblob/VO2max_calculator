@@ -15,7 +15,3 @@ The app assumes a **linear load–velocity relationship** and
 uses population-average V1RM values. Estimates are best used
 for **daily autoregulation**, not maximal testing.
 
-## Run locally
-```bash
-pip install -r requirements.txt
-streamlit run app.py
